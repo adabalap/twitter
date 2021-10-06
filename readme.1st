@@ -6,4 +6,6 @@ Twitter "Keys and tokens"
 			RainBowDashBOT
 				Keys and tokens
 
-
+python requirements.txt:
+------------------------
+pip freeze > requirements.txt
