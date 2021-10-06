@@ -1,0 +1,4 @@
+{
+  "select": "SELECT rowid, cookie FROM linux_fortune_cookies WHERE type == 'perl'",
+  "update": "UPDATE linux_fortune_cookies SET tweet = 1 WHERE rowid == ZZZ"
+}
