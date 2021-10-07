@@ -51,6 +51,13 @@ def db_query(db, sql_stmt, hash_tag):
 
         cur.execute(sql_stmt['select'])
         rec = cur.fetchone()
+
+        if len(rec[1]) >= 280:
+            # Tweet message length cannot exceed 280 chars
+            #   - allow few chars for tags as-well
+            #   - 2nd element int he record array is the tweet
+            rec = db_query(db, sql_stmt, hash_tag)
+
     except Error as err:
         raise err
 
@@ -85,6 +92,7 @@ def db_sql(sql_file):
 
 
 if __name__ == "__main__":
+    # Parse command line arguments
     args = get_cmd_line_args()
 
     # Get DB connection
@@ -111,7 +119,7 @@ if __name__ == "__main__":
         logging.error(err)
         raise err
 
-    # Update DB
+    # Update DB:
     #   - parse the SQL and replace with dynamic value
     sql_stmt['update'] = str(sql_stmt['update']).replace('ZZZ', f'{rowid}')
     logging.debug(sql_stmt['update'])
