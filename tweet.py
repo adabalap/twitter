@@ -98,7 +98,7 @@ if __name__ == "__main__":
     (rowid, msg) = (rec[0], rec[1])
 
     # Append the hash tag to the tweet message
-    msg = f'{msg} \n#{args["hash_tag"]}'
+    msg = f'{msg} \n\n#{args["hash_tag"]}'
 
     try:
         tokens = twitter.tokens(args['tokens_file'])
