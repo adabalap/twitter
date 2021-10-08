@@ -2,9 +2,8 @@ import argparse
 import json
 import logging
 import sqlite3
-from sqlite3 import Error
-
 from ShiningArmor import twitter
+from sqlite3 import Error
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
@@ -23,10 +22,10 @@ def get_cmd_line_args():
 
     args = vars(ap.parse_args())
 
-    logging.info(f'Tokens file is - {args["tokens_file"]}')
-    logging.info(f'Sqlite3 DB file is - {args["db_file"]}')
-    logging.info(f'SQL file is - {args["sql_file"]}')
-    logging.info(f'HASH Tag is - {args["hash_tag"]}')
+    logging.info(f'Tokens file: {args["tokens_file"]}')
+    logging.info(f'Sqlite3 DB file: {args["db_file"]}')
+    logging.info(f'SQL file: {args["sql_file"]}')
+    logging.info(f'HASH Tag: {args["hash_tag"]}')
 
     return args
 
@@ -51,17 +50,11 @@ def db_query(db, sql_stmt, hash_tag):
 
         cur.execute(sql_stmt['select'])
         rec = cur.fetchone()
-
-        if len(rec[1]) >= 280:
-            # Tweet message length cannot exceed 280 chars
-            #   - allow few chars for tags as-well
-            #   - 2nd element int he record array is the tweet
-            rec = db_query(db, sql_stmt, hash_tag)
-
     except Error as err:
         raise err
 
     return rec
+
 
 def db_update(db, sql_stmt):
     # Update the SQL statement
@@ -71,6 +64,7 @@ def db_update(db, sql_stmt):
         db.commit()
     except Error as err:
         raise err
+
 
 def db_close_conn(db):
     # Close the DB connection
