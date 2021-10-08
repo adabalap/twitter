@@ -46,10 +46,11 @@ def db_query(db, sql_stmt, hash_tag):
         cur = db.cursor()
         # Parse the SQL and replace with dynamic value
         sql_stmt['select'] = str(sql_stmt['select']).replace('ZZZ', f'{hash_tag}')
-        logging.debug(sql_stmt['select'])
+        logging.info(f"SQL: {sql_stmt['select']}")
 
         cur.execute(sql_stmt['select'])
         rec = cur.fetchone()
+        logging.info(f"Record: {rec}")
     except Error as err:
         raise err
 
