@@ -1,4 +1,4 @@
 {
-  "select": "SELECT rowid, cookie FROM linux_fortune_cookies WHERE type == 'ZZZ' and tweet != 1",
+  "select": "select rowid, * from linux_fortune_cookies where (type == 'ZZZ' and length(cookie) <= (280 - (length(type) + 1))) and tweet != 1",
   "update": "UPDATE linux_fortune_cookies SET tweet = 1 WHERE rowid == ZZZ"
 }
